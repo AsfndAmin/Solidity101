@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.2;
+
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
+contract ReceiveEth{
+    mapping(address => uint256) public addresstoamountreceived;
+
+    function Recieve()public payable{
+        addresstoamountreceived[msg.sender] += msg.value;
+
+    }
+}
+
+contract MyToken is ERC20, ReceiveEth {
+    string Name;
+    string Symbol;
+    function getvalues(string memory name_,string memory symbol_) public {
+        Name = name_;
+        Symbol = symbol_;
+    }
+    constructor() ERC20( Name,  Symbol) {}
